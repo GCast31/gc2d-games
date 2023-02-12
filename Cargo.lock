@@ -30,7 +30,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "gc2d-games"
+name = "gc2d_games"
 version = "0.1.0"
 dependencies = [
  "gc2d",
