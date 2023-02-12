@@ -1,1 +1,1 @@
-mod tilemap;
+pub mod tilemap;
