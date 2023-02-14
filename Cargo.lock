@@ -23,7 +23,7 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 [[package]]
 name = "gc2d"
 version = "0.1.0"
-source = "git+https://github.com/GCast31/gc2d.git#d2257e813ec025fa1b4fe3e2c5bfeb1141e88387"
+source = "git+https://github.com/GCast31/gc2d.git#260a5c35076fbf14745db3b6fa50ffb5267beb69"
 dependencies = [
  "sdl2",
  "time",

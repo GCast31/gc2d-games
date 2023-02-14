@@ -115,9 +115,10 @@ impl<T: Eq + Hash, U: TileDescription> TileMap<T, U> {
                             TypeTileMap::FromSimpleFile(filename) => {
                                 gc2d.graphics.draw(
                                     filename.as_str(), 
-                                    (self.tile_width * column) as f32, 
-                                    (self.tile_height * line) as f32 , 
-                                    0.
+                                    None,
+                                    (self.tile_width * column) as f32 , 
+                                    (self.tile_height * line) as f32 ,
+                                    0f64,
                                 );
                             },
                             TypeTileMap::FromTileSet(_, _, _) => {

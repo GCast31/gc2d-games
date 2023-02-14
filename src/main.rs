@@ -19,6 +19,12 @@ const WINDOW_WIDTH: usize = MAP_TILE_WIDTH * 10;
 struct Game {
     tilemap: Option<TileMap<u32, MyTileDescription>>,
 
+    player: Player,
+}
+
+struct Player {
+    x: f32, 
+    y: f32,
 }
 
 struct MyTileDescription {
@@ -39,6 +45,10 @@ impl Default for Game {
     fn default() -> Self {
         Self {  
             tilemap: None,
+            player : Player {
+                x: 0f32,
+                y: 0f32,
+            }
         }
     }
 }
@@ -106,7 +116,21 @@ impl EventLoop for Game {
         Ok(())
     }
 
-    fn update(&mut self, _gc2d: &mut gc2d::gc2d::Gc2d, _dt: f32, _audio_manager: &mut gc2d::audio::AudioManager) -> Result<(), gc2d::event::EventError> {
+    fn update(&mut self, gc2d: &mut gc2d::gc2d::Gc2d, dt: f32, _audio_manager: &mut gc2d::audio::AudioManager) -> Result<(), gc2d::event::EventError> {
+
+        if gc2d.keyboard.is_down(gc2d::keyboard::KeyCode::Left) {
+            self.player.x -= 50. * dt;
+        }
+        if gc2d.keyboard.is_down(gc2d::keyboard::KeyCode::Right) {
+            self.player.x += 50. * dt;
+        }
+        if gc2d.keyboard.is_down(gc2d::keyboard::KeyCode::Down) {
+            self.player.y += 50. * dt;
+        }
+        if gc2d.keyboard.is_down(gc2d::keyboard::KeyCode::Up) {
+            self.player.y -= 50. * dt;
+        }
+
         Ok(())
     }
 
@@ -126,6 +150,10 @@ impl EventLoop for Game {
                 );
             }
         }
+
+        // Draw player
+        gc2d.graphics.circle(gc2d::graphics::DrawMode::Fill, self.player.x + 10., self.player.y + 10., 10., Some(Color::RED));
+
         Ok(())
     }
 }
