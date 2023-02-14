@@ -12,7 +12,7 @@
 
 use std::{collections::HashMap, hash::Hash};
 
-use gc2d::{color::Color, fonts::FontsManager};
+use gc2d::color::Color;
 
 /*
     TYPE OF TILEMAP
@@ -37,7 +37,7 @@ pub struct TileMap<T: Eq + Hash, U: TileDescription> {
     tile_height: usize,
     tile_width: usize,
     map: Option<Vec<Vec<T>>>,
-    map_tiles: HashMap<T, TileMapDetail<U>>,
+    tiles_definition: HashMap<T, TileMapDetail<U>>,
 }
 
 pub trait TileDescription {}
@@ -48,12 +48,12 @@ impl<T: Eq + Hash, U: TileDescription> TileMap<T, U> {
      * 
      * @brief : Create a new tilemap
      */
-    pub fn new(map_tiles: HashMap<T, TileMapDetail<U>>, tile_width: usize, tile_height: usize) -> Self {
+    pub fn new(tiles_definition: HashMap<T, TileMapDetail<U>>, tile_width: usize, tile_height: usize) -> Self {
         Self { 
             tile_height,
             tile_width,
             map: None, 
-            map_tiles,
+            tiles_definition,
         }
     }
 
@@ -89,7 +89,7 @@ impl<T: Eq + Hash, U: TileDescription> TileMap<T, U> {
                 let tile_line = &map[line];
                 if column < tile_line.capacity() {
                     let tile = &tile_line[column];
-                    if let Some(detail) = self.map_tiles.get(&tile) {
+                    if let Some(detail) = self.tiles_definition.get(&tile) {
                         if let Some(description) = &detail.description {
                             return Some(&description);
                         }
@@ -102,13 +102,15 @@ impl<T: Eq + Hash, U: TileDescription> TileMap<T, U> {
     }
 
     /*
-     * Drawing the map
+     * Draw()
+     *
+     * @brief: Drawing the map
      */
-    pub fn draw(&self, gc2d: &mut gc2d::gc2d::Gc2d, fonts: &mut FontsManager) {
+    pub fn draw(&self, gc2d: &mut gc2d::gc2d::Gc2d) {
         if let Some(map) = &self.map {
             for (line, value_line) in map.iter().enumerate() {
                 for (column, value_column) in value_line.iter().enumerate() {
-                    if let Some(tile_definition) = self.map_tiles.get(&value_column) {
+                    if let Some(tile_definition) = self.tiles_definition.get(&value_column) {
                         match &tile_definition.type_tilemap {
                             TypeTileMap::FromSimpleFile(filename) => {
                                 gc2d.graphics.draw(
@@ -118,7 +120,7 @@ impl<T: Eq + Hash, U: TileDescription> TileMap<T, U> {
                                     0.
                                 );
                             },
-                            TypeTileMap::FromTileSet(filename, column, line) => {
+                            TypeTileMap::FromTileSet(_, _, _) => {
                                 todo!("GC2D Quad todo");
                             },
                             TypeTileMap::Rectangle(color) => {
