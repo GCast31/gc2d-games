@@ -23,7 +23,7 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 [[package]]
 name = "gc2d"
 version = "0.1.0"
-source = "git+https://github.com/GCast31/gc2d.git#260a5c35076fbf14745db3b6fa50ffb5267beb69"
+source = "git+https://github.com/GCast31/gc2d.git#a2848678ce8109fd844d80b4b736214946a8ce74"
 dependencies = [
  "sdl2",
  "time",
@@ -80,9 +80,9 @@ checksum = "bb7d1f0d3021d347a83e556fc4683dea2ea09d87bccdf88ff5c12545d89d5efb"
 
 [[package]]
 name = "time"
-version = "0.3.17"
+version = "0.3.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a561bf4617eebd33bca6434b988f39ed798e527f51a1e797d0ee4f61c0a38376"
+checksum = "53250a3b3fed8ff8fd988587d8925d26a83ac3845d9e03b220b37f34c2b8d6c2"
 dependencies = [
  "serde",
  "time-core",
